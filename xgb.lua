@@ -94,7 +94,7 @@ function lsis_xgt_protocol.dissector(buffer, pinfo, tree)
 		subtree:add_le(length_of_variables, buffer(28, 2))
 		local len = buffer(28, 2):le_int()
 		if len + 30 + 2 <= length then
-			subtree:add_le(data_address, buffer(30, len))
+			subtree:add_le(data_address, buffer(30, len)):append_text(" (" .. buffer(30, len):string() ..")")
 			subtree:add_le(data_count, buffer(30 + len, 2))
 		else
 			print("The length of the data address is out of the packet. len is:" .. len)
